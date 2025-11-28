@@ -10,6 +10,10 @@ import { CalendarClassesRepository } from "./repositories/CalendarClassesReposit
 import { createUserRouter } from "./routes/users";
 import { UserRepository } from "./repositories/user.base.repository";
 import { CalendarUserRepository } from "./repositories/CalendarUserRepository";
+import {expressjwt as jwt} from "express-jwt"
+import jwks from "jwks-rsa"
+import { expressJwtSecret } from "jwks-rsa";
+
 
 async function main(
     eventRepository: EventRepository, 
@@ -41,6 +45,21 @@ async function main(
 
     // cors
     app.use(cors())
+
+    //Auth0
+    // const AUTH0_DOMAIN = "https://jaysandjay.ca.auth0.com"
+    // const API_IDENTIFIER = "https://jaysandjay.calendarapi.com"
+
+    // const checkJwt = jwt({
+    //     secret: jwks.expressJwtSecret({
+    //         jwksUri: `${AUTH0_DOMAIN}.well-known/jwks.json`,
+    //         cache: true,
+    //         rateLimit: true,
+    //     }),
+    //     audience: API_IDENTIFIER,
+    //     issuer: AUTH0_DOMAIN,
+    //     algorithms: ["RS256"],
+    //     });
 
     // Logger
     app.use(logger)

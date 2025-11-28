@@ -9,16 +9,17 @@ export class CalendarUserRepository implements UserRepository{
     async getUserId(user: User): Promise<number> {
         const client = await pool.connect()
         try{
-            await client.query('SELECT id FROM users WHERE password = $1 AND email LIKE $2', 
+            let res = await client.query('SELECT id FROM users WHERE password = $1 AND email = $2', 
                 [user.password, user.email]
             )
+            console.log("User ID:", res.rows[0].id )
+            return  res.rows[0].id 
         }catch(err){
             console.error("Error finding user", err)
             throw new Error("Error finding user")
         }finally{
             client.release()
         }
-        return 1
     }
     
     async saveUser(user: User): Promise<void> {
