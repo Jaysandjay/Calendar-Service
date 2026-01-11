@@ -11,8 +11,7 @@ import { createUserRouter } from "./routes/users";
 import { UserRepository } from "./repositories/user.base.repository";
 import { CalendarUserRepository } from "./repositories/CalendarUserRepository";
 import {expressjwt as jwt} from "express-jwt"
-import jwks from "jwks-rsa"
-import { expressJwtSecret } from "jwks-rsa";
+import { Pool } from "pg";
 
 
 async function main(
@@ -36,7 +35,7 @@ async function main(
 
 
     // Create app
-    const port = 8000
+    const port = 7000
     const app = express()
 
     // Body parser middleware
@@ -73,6 +72,15 @@ async function main(
         console.log('get')
         res.send({msg: 'success'})
     })
+        //Check Connection
+    try {
+        const pool = new Pool({connectionString: 'postgresql://postgres:izadam@localhost:5432/calendar'})
+        await pool.query("SELECT 1")
+        console.log("Database connected successfully!");
+  } catch (err) {
+    console.error("Cannot connect to database:", err);
+    process.exit(1); 
+  }
 
 
     app.listen(port, () => console.log(`Server is running on port ${port}...`))
