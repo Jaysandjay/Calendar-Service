@@ -21,21 +21,8 @@ async function main(
 ){
     console.log('App is running....')
 
-    // const eventExample = {
-    //     date: '2025-08-26',
-    //     className: 'Advance Front End',
-    //     color: 'yellow',
-    //     event: 'Assignment 1',
-    //     isComplete: false
-    // }
-
-    // await eventRepository.addEvent(eventExample)
-    // await eventRepository.deleteEvent(5)
-    // await eventRepository.getEventsByDate('2025-08-26')
-
-
     // Create app
-    const port = 7000
+    const port = 3000
     const app = express()
 
     // Body parser middleware
@@ -44,23 +31,6 @@ async function main(
 
     // cors
     app.use(cors())
-
-    //Auth0
-    // const AUTH0_DOMAIN = "https://jaysandjay.ca.auth0.com"
-    // const API_IDENTIFIER = "https://jaysandjay.calendarapi.com"
-
-    // const checkJwt = jwt({
-    //     secret: jwks.expressJwtSecret({
-    //         jwksUri: `${AUTH0_DOMAIN}.well-known/jwks.json`,
-    //         cache: true,
-    //         rateLimit: true,
-    //     }),
-    //     audience: API_IDENTIFIER,
-    //     issuer: AUTH0_DOMAIN,
-    //     algorithms: ["RS256"],
-    //     });
-
-    // Logger
     app.use(logger)
 
     //  Routes
@@ -68,6 +38,7 @@ async function main(
     app.use('/api/classes', createClassRouter(classRepository))
     app.use('/api/users', createUserRouter(userRepository))
 
+    //Tester
     app.get('/api/events', (req, res) => {
         console.log('get')
         res.send({msg: 'success'})
@@ -81,7 +52,6 @@ async function main(
     console.error("Cannot connect to database:", err);
     process.exit(1); 
   }
-
 
     app.listen(port, () => console.log(`Server is running on port ${port}...`))
 

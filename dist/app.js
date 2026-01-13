@@ -27,7 +27,7 @@ async function main(eventRepository, classRepository, userRepository) {
     // await eventRepository.deleteEvent(5)
     // await eventRepository.getEventsByDate('2025-08-26')
     // Create app
-    const port = 7000;
+    const port = 3000;
     const app = (0, express_1.default)();
     // Body parser middleware
     app.use(express_1.default.json());
