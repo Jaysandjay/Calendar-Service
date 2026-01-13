@@ -10,7 +10,7 @@ import { CalendarClassesRepository } from "./repositories/CalendarClassesReposit
 import { createUserRouter } from "./routes/users";
 import { UserRepository } from "./repositories/user.base.repository";
 import { CalendarUserRepository } from "./repositories/CalendarUserRepository";
-import {expressjwt as jwt} from "express-jwt"
+import "dotenv/config"
 import { Pool } from "pg";
 
 
@@ -74,7 +74,7 @@ async function main(
     })
         //Check Connection
     try {
-        const pool = new Pool({connectionString: 'postgresql://postgres:izadam@localhost:5432/calendar'})
+        const pool = new Pool({connectionString: process.env.CONNECTION_STRING})
         await pool.query("SELECT 1")
         console.log("Database connected successfully!");
   } catch (err) {

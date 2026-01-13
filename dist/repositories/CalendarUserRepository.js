@@ -2,7 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CalendarUserRepository = void 0;
 const pg_1 = require("pg");
-const pool = new pg_1.Pool({ connectionString: 'postgresql://postgres:izadam@localhost:5432/calendar' });
+require("dotenv/config");
+const pool = new pg_1.Pool({ connectionString: process.env.CONNECTION_STRING });
 class CalendarUserRepository {
     async getUserId(user) {
         const client = await pool.connect();

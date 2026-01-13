@@ -12,6 +12,7 @@ const classes_1 = require("./routes/classes");
 const CalendarClassesRepository_1 = require("./repositories/CalendarClassesRepository");
 const users_1 = require("./routes/users");
 const CalendarUserRepository_1 = require("./repositories/CalendarUserRepository");
+require("dotenv/config");
 const pg_1 = require("pg");
 async function main(eventRepository, classRepository, userRepository) {
     console.log('App is running....');
@@ -58,7 +59,7 @@ async function main(eventRepository, classRepository, userRepository) {
     });
     //Check Connection
     try {
-        const pool = new pg_1.Pool({ connectionString: 'postgresql://postgres:izadam@localhost:5432/calendar' });
+        const pool = new pg_1.Pool({ connectionString: process.env.CONNECTION_STRING });
         await pool.query("SELECT 1");
         console.log("Database connected successfully!");
     }
