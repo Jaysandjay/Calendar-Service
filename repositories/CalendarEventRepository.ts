@@ -1,8 +1,8 @@
 import { EventRepository } from "./events.base.repository";
 import { Event } from "../types/Event";
 import { Pool } from 'pg'
-
-const pool = new Pool({connectionString: 'postgresql://postgres:izadam@localhost:5432/calendar' })
+import 'dotenv/config'
+const pool = new Pool({connectionString: process.env.CONNECTION_STRING })
 
 export class CalendarEventRepository implements EventRepository {
 

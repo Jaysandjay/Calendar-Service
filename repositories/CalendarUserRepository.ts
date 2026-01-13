@@ -1,9 +1,9 @@
 import { User } from "../types/User";
 import { UserRepository } from "./user.base.repository";
 import { Pool } from 'pg'
+import "dotenv/config"
 
-
-const pool = new Pool({connectionString: 'postgresql://postgres:izadam@localhost:5432/calendar' })
+const pool = new Pool({connectionString: process.env.CONNECTION_STRING  })
 
 export class CalendarUserRepository implements UserRepository{
     async getUserId(user: User): Promise<number> {

@@ -1,8 +1,8 @@
 import { Course } from "../types/Course";
 import { ClassesRepository } from "./classes.base.repository";
 import { Pool } from "pg";
-
-const pool = new Pool({connectionString: 'postgresql://postgres:izadam@localhost:5432/calendar' })
+import "dotenv/config"
+const pool = new Pool({connectionString: process.env.CONNECTION_STRING  })
 
 export class CalendarClassesRepository implements ClassesRepository{
     async getClasses(userId: number): Promise<object> {
