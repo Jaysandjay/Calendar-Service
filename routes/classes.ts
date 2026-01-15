@@ -25,8 +25,8 @@ export function createClassRouter(repository: ClassesRepository){
 
         const newClass = {name, color, userId}
 
-        await repository.addClass(newClass)
-        res.status(200).json(newClass)
+        const createdClass =await repository.addClass(newClass)
+        res.status(200).json(createdClass)
     })
 
     // Delete class

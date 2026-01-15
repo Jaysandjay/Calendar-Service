@@ -8,9 +8,10 @@ export class CalendarClassesRepository implements ClassesRepository{
     async getClasses(userId: number): Promise<object> {
         const client = await pool.connect()
         try{
-            const res = await client.query('SELECT * FROM classes WHERE user_id = $1',
+            const res = await client.query('SELECT * FROM classes WHERE user_id = $1 ORDER BY id',
                 [userId]
             )
+            console.log("classes", res.rows)
             return res.rows
         }catch(err){
             console.error("Failed to fetch classes", err)
@@ -23,9 +24,11 @@ export class CalendarClassesRepository implements ClassesRepository{
     async addClass(classData: Course): Promise<void> {
         const client = await pool.connect()
         try{
-            await client.query(`INSERT INTO classes(name, color, user_id) VALUES($1, $2, $3)`,
+            const res = await client.query(`INSERT INTO classes(name, color, user_id) VALUES($1, $2, $3) RETURNING id, name, color, user_id`,
                 [classData.name, classData.color, classData.userId]
             )
+            console.log(res.rows)
+            return res.rows[0]
         }catch(err){
             console.error(`Error creating class`, err)
             throw new Error('Error creating class')
