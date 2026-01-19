@@ -3,7 +3,6 @@ import { EventRepository } from "./repositories/events.base.repository";
 import express from 'express';
 import { createEventRouter } from "./routes/events";
 import cors from 'cors'
-import logger from "./middleware/logger";
 import { createClassRouter } from "./routes/classes";
 import { ClassesRepository } from "./repositories/classes.base.repository";
 import { CalendarClassesRepository } from "./repositories/CalendarClassesRepository";
@@ -12,6 +11,7 @@ import { UserRepository } from "./repositories/user.base.repository";
 import { CalendarUserRepository } from "./repositories/CalendarUserRepository";
 import "dotenv/config"
 import { Pool } from "pg";
+import methodLogger from "./middleware/methodLogger";
 
 
 async function main(
@@ -31,7 +31,7 @@ async function main(
 
     // cors
     app.use(cors())
-    app.use(logger)
+    app.use(methodLogger)
 
     //  Routes
     app.use('/api/events', createEventRouter(eventRepository))

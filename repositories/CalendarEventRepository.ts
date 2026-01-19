@@ -2,23 +2,29 @@ import { EventRepository } from "./events.base.repository";
 import { Event } from "../types/Event";
 import { Pool } from 'pg'
 import 'dotenv/config'
+import logger from "../util/logger";
+import logError from "../util/logError";
 const pool = new Pool({connectionString: process.env.CONNECTION_STRING })
 
 export class CalendarEventRepository implements EventRepository {
 
     async addEvent(event: Event): Promise<void>{
         const client = await pool.connect()
-        console.log(event)
         try{
-            await client.query(
+            const res = await client.query(
                 `
-                INSERT INTO events(date, event, is_complete, class_id) VALUES($1, $2, $3, $4)
+                INSERT INTO events(date, event, is_complete, class_id) VALUES($1, $2, $3, $4) RETURNING *
                 `,
                 [event.date, event.event, event.isComplete, event.class_id]
             )
+            logger.debug('DB: AddEvent', {
+                rowCount: res.rows.length,
+                query: "getTeachers",
+                rows: res.rows
+            })
         }catch(err){
-            console.error("Error inserting event", err)
-            throw new Error("Error inserting Event")
+            logError("Error creating event", err)
+            throw err
         }finally{
             client.release()
         }
@@ -27,12 +33,17 @@ export class CalendarEventRepository implements EventRepository {
     async deleteEvent(id: number): Promise<void> {
         const client = await pool.connect()
         try{
-            await client.query(`DELETE FROM events WHERE id = $1`,
+            const res = await client.query(`DELETE FROM events WHERE id = $1 RETURNING *`,
                 [id]
             )
+            logger.debug('DB: Delete teacher', {
+                rowCount: res.rows.length,
+                query: "deleteTeachers",
+                rows: res.rows
+            })
         }catch(err){
-            console.error(`Error deleting event with id ${id}`, err)
-            throw new Error(`Error deleting event with id ${id}`)
+            logError(`Error deleting event with id ${id}`, err)
+            throw err
         }finally{
             client.release()
         }
@@ -45,7 +56,6 @@ export class CalendarEventRepository implements EventRepository {
             const res = await client.query('SELECT * FROM event_details WHERE user_id = $1',
                 [id]
             )
-            console.log(res)
             const events = {}
             for(const row of res.rows){
 
@@ -62,10 +72,15 @@ export class CalendarEventRepository implements EventRepository {
               }
                 events[row.date].push(event)
             }
+            logger.debug('DB: Get user Events', {
+                rowCount: res.rows.length,
+                query: "getEventByUserId",
+                rows: res.rows
+            })
             return events
         }catch(err){
-            console.error("Failed to fetch events", err)
-            throw new Error("Failed to fetch events")
+            logError("Failed to fetch events", err)
+            throw err
         }finally{
             client.release()
         }
@@ -75,7 +90,6 @@ export class CalendarEventRepository implements EventRepository {
         const client = await pool.connect()
         try{
             const res = await client.query('SELECT * FROM event_details')
-            console.log(res)
             const events = {}
             for(const row of res.rows){
 
@@ -92,10 +106,15 @@ export class CalendarEventRepository implements EventRepository {
               }
                 events[row.date].push(event)
             }
+            logger.debug('DB: Fetch events', {
+                rowCount: res.rows.length,
+                query: "getEvents",
+                rows: res.rows
+            })
             return events
         }catch(err){
-            console.error("Failed to fetch events", err)
-            throw new Error("Failed to fetch events")
+            logError("Failed to fetch events", err)
+            throw err
         }finally{
             client.release()
         }
@@ -105,12 +124,17 @@ export class CalendarEventRepository implements EventRepository {
         const client = await pool.connect()
         try{
             const res = await client.query(
-                `UPDATE events SET is_complete = $2 WHERE id = $1`,
+                `UPDATE events SET is_complete = $2 WHERE id = $1 RETURNING *`,
                 [id, value]
             )
+            logger.debug('DB: Update event completion', {
+                rowCount: res.rows.length,
+                query: "updateCompletion",
+                rows: res.rows
+            })
         }catch(err){
-            console.error(`Error updating checked value for event with id: ${id}`, err)
-            throw new Error(`Error updating checked value for event with id: ${id}`)
+            logError(`Error updating checked value for event with id: ${id}`, err)
+            throw err
         }finally{
             client.release()
         }

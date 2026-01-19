@@ -16,16 +16,6 @@ require("dotenv/config");
 const pg_1 = require("pg");
 async function main(eventRepository, classRepository, userRepository) {
     console.log('App is running....');
-    // const eventExample = {
-    //     date: '2025-08-26',
-    //     className: 'Advance Front End',
-    //     color: 'yellow',
-    //     event: 'Assignment 1',
-    //     isComplete: false
-    // }
-    // await eventRepository.addEvent(eventExample)
-    // await eventRepository.deleteEvent(5)
-    // await eventRepository.getEventsByDate('2025-08-26')
     // Create app
     const port = 3000;
     const app = (0, express_1.default)();
@@ -34,25 +24,12 @@ async function main(eventRepository, classRepository, userRepository) {
     app.use(express_1.default.urlencoded({ extended: true }));
     // cors
     app.use((0, cors_1.default)());
-    //Auth0
-    // const AUTH0_DOMAIN = "https://jaysandjay.ca.auth0.com"
-    // const API_IDENTIFIER = "https://jaysandjay.calendarapi.com"
-    // const checkJwt = jwt({
-    //     secret: jwks.expressJwtSecret({
-    //         jwksUri: `${AUTH0_DOMAIN}.well-known/jwks.json`,
-    //         cache: true,
-    //         rateLimit: true,
-    //     }),
-    //     audience: API_IDENTIFIER,
-    //     issuer: AUTH0_DOMAIN,
-    //     algorithms: ["RS256"],
-    //     });
-    // Logger
     app.use(logger_1.default);
     //  Routes
     app.use('/api/events', (0, events_1.createEventRouter)(eventRepository));
     app.use('/api/classes', (0, classes_1.createClassRouter)(classRepository));
     app.use('/api/users', (0, users_1.createUserRouter)(userRepository));
+    //Tester
     app.get('/api/events', (req, res) => {
         console.log('get');
         res.send({ msg: 'success' });

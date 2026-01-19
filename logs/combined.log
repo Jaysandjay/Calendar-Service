@@ -1,0 +1,161 @@
+2026-01-19 12:34:55 [info]: GET http://localhost:3000/api/events Status: 200
+2026-01-19 12:34:55 [debug]: DB: Fetch events
+Metadata: {
+  "rowCount": 17,
+  "query": "getEvents",
+  "rows": [
+    {
+      "id": 47,
+      "date": "2026-01-04",
+      "event": "Commodi quaerat labore aperiam explicabo expedita recusandae.",
+      "is_complete": false,
+      "color": "gold",
+      "class_name": "D'Amore",
+      "user_id": 14
+    },
+    {
+      "id": 48,
+      "date": "2026-01-05",
+      "event": "Corporis fuga deleniti in numquam voluptas accusantium modi amet non.",
+      "is_complete": false,
+      "color": "cyan",
+      "class_name": "Walter",
+      "user_id": 14
+    },
+    {
+      "id": 50,
+      "date": "2026-01-07",
+      "event": "Dolores voluptas laudantium voluptatem magnam.",
+      "is_complete": false,
+      "color": "lime",
+      "class_name": "Wolff",
+      "user_id": 14
+    },
+    {
+      "id": 51,
+      "date": "2026-01-08",
+      "event": "Accusantium excepturi officia.",
+      "is_complete": false,
+      "color": "navy",
+      "class_name": "Nienow",
+      "user_id": 14
+    },
+    {
+      "id": 56,
+      "date": "2026-01-14",
+      "event": "Quia odit facere accusamus ut commodi architecto fugiat.",
+      "is_complete": false,
+      "color": "darkviolet",
+      "class_name": "Price",
+      "user_id": 14
+    },
+    {
+      "id": 57,
+      "date": "2026-01-07",
+      "event": "Enim facere minus.",
+      "is_complete": false,
+      "color": "gold",
+      "class_name": "D'Amore",
+      "user_id": 14
+    },
+    {
+      "id": 58,
+      "date": "2026-01-07",
+      "event": "Tenetur assumenda soluta eum.",
+      "is_complete": false,
+      "color": "darkviolet",
+      "class_name": "Price",
+      "user_id": 14
+    },
+    {
+      "id": 59,
+      "date": "2026-01-07",
+      "event": "Magnam ea architecto aliquid dolorem consequuntur architecto inventore nostrum eligendi.",
+      "is_complete": false,
+      "color": "navy",
+      "class_name": "Nienow",
+      "user_id": 14
+    },
+    {
+      "id": 60,
+      "date": "2026-01-07",
+      "event": "Neque cumque sapiente magni beatae at error.",
+      "is_complete": false,
+      "color": "darkviolet",
+      "class_name": "Price",
+      "user_id": 14
+    },
+    {
+      "id": 61,
+      "date": "2026-01-07",
+      "event": "Voluptatum consequatur saepe voluptate soluta nisi iste ex non illo.",
+      "is_complete": false,
+      "color": "darkviolet",
+      "class_name": "Price",
+      "user_id": 14
+    },
+    {
+      "id": 62,
+      "date": "2026-01-07",
+      "event": "Accusantium aut quis enim atque repellat consequatur magnam.",
+      "is_complete": false,
+      "color": "navy",
+      "class_name": "Nienow",
+      "user_id": 14
+    },
+    {
+      "id": 63,
+      "date": "2026-01-07",
+      "event": "Lab 1",
+      "is_complete": false,
+      "color": "gold",
+      "class_name": "D'Amore",
+      "user_id": 14
+    },
+    {
+      "id": 64,
+      "date": "2026-01-07",
+      "event": "Sequi nisi facere omnis voluptatem.",
+      "is_complete": false,
+      "color": "cyan",
+      "class_name": "Walter",
+      "user_id": 14
+    },
+    {
+      "id": 65,
+      "date": "2026-01-07",
+      "event": "Laboriosam quas numquam quidem expedita sunt necessitatibus.",
+      "is_complete": false,
+      "color": "darkviolet",
+      "class_name": "Price",
+      "user_id": 14
+    },
+    {
+      "id": 66,
+      "date": "2026-01-07",
+      "event": "Magnam aperiam nihil.",
+      "is_complete": false,
+      "color": "cyan",
+      "class_name": "Walter",
+      "user_id": 14
+    },
+    {
+      "id": 67,
+      "date": "2026-01-07",
+      "event": "Quidem odit magni cumque expedita.",
+      "is_complete": false,
+      "color": "gold",
+      "class_name": "D'Amore",
+      "user_id": 14
+    },
+    {
+      "id": 68,
+      "date": "2026-01-07",
+      "event": "Cum suscipit tempore quidem iste provident dignissimos ipsum.",
+      "is_complete": false,
+      "color": "navy",
+      "class_name": "Nienow",
+      "user_id": 14
+    }
+  ]
+}

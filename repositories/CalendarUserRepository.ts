@@ -2,6 +2,8 @@ import { User } from "../types/User";
 import { UserRepository } from "./user.base.repository";
 import { Pool } from 'pg'
 import "dotenv/config"
+import logger from "../util/logger";
+import logError from "../util/logError";
 
 const pool = new Pool({connectionString: process.env.CONNECTION_STRING  })
 
@@ -12,11 +14,15 @@ export class CalendarUserRepository implements UserRepository{
             let res = await client.query('SELECT id FROM users WHERE password = $1 AND email = $2', 
                 [user.password, user.email]
             )
-            console.log("User ID:", res.rows[0].id )
+            logger.debug('DB: Get userId', {
+                rowCount: res.rows.length,
+                query: "getUserId",
+                rows: res.rows
+            })
             return  res.rows[0].id 
         }catch(err){
-            console.error("Error finding user", err)
-            throw new Error("Error finding user")
+            logError("Error finding user", err)
+            throw err
         }finally{
             client.release()
         }
@@ -24,14 +30,18 @@ export class CalendarUserRepository implements UserRepository{
     
     async saveUser(user: User): Promise<void> {
         const client = await pool.connect()
- 
         try{
-            await client.query('INSERT INTO users(email, password) VALUES($1, $2)',
+            const res = await client.query('INSERT INTO users(email, password) VALUES($1, $2) RETURNING *',
                 [user.email, user.password]
             )
+            logger.debug('DB: Create user', {
+                rowCount: res.rows.length,
+                query: "saveUser",
+                rows: res.rows
+            })
         }catch(err){
-            console.error("Error posting user", err)
-            throw new Error("Error posting user")
+            logError("Error posting user", err)
+            throw err
         }finally{
             client.release()
         }
@@ -43,10 +53,15 @@ export class CalendarUserRepository implements UserRepository{
             const res = await client.query('SELECT id, email, password FROM users WHERE LOWER(email) = $1',
                 [email.toLowerCase()]
             )
+            logger.debug('DB: Get User', {
+                rowCount: res.rows.length,
+                query: "getExistingUser",
+                rows: res.rows
+            })
             return res.rows[0]
         }catch(err){
-            console.error("Error checking for user", err)
-            throw new Error("Error checking for user")
+            logError("Error checking for user", err)
+            throw err
         }finally{
             client.release()
         }

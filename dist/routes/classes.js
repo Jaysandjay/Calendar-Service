@@ -24,8 +24,8 @@ function createClassRouter(repository) {
             throw new Error("Cannont post, Missing required fields");
         }
         const newClass = { name, color, userId };
-        await repository.addClass(newClass);
-        res.status(200).json(newClass);
+        const createdClass = await repository.addClass(newClass);
+        res.status(200).json(createdClass);
     });
     // Delete class
     router.delete('/:id', async (req, res) => {
